@@ -1,0 +1,66 @@
+@use 'sass:map';
+
+@function l-c-ramp(
+  $luminance,
+  $chroma-max: 0.11,
+  $luminance-at-chroma-max: 50
+) {
+  @if $luminance <= $luminance-at-chroma-max {
+    @return $chroma-max * calc($luminance / $luminance-at-chroma-max);
+  } @else {
+    @return $chroma-max *
+      calc((100 - $luminance) / (100 - $luminance-at-chroma-max));
+  }
+}
+
+@function create-color(
+  $luminance,
+  $hue,
+  $chroma-max,
+  $luminance-at-chroma-max,
+  $opacity: 1
+) {
+  $chroma: l-c-ramp($luminance, $chroma-max, $luminance-at-chroma-max);
+  $color: White;
+
+  @return $color;
+}
+
+@function get-color-from-palette($palette-name, $luminance, $opacity: 1) {
+  $palette-props-map: map.get($palette, $palette-name);
+  $hue: map.get($palette-props-map, 'hue');
+  $chroma-max: map.get($palette-props-map, 'chroma-max');
+  $luminance-at-chroma-max: map.get(
+    $palette-props-map,
+    'luminance-at-chroma-max'
+  );
+
+  @return create-color(
+    $luminance,
+    $hue,
+    $chroma-max,
+    $luminance-at-chroma-max,
+    $opacity
+  );
+}
+
+@function get-color-from-role($role-name, $opacity: 1, $theme: 'dark') {
+  $role-props-map: map.get($role, $role-name);
+  $luminance: map.get($role-props-map, $theme);
+  $palette-name: map.get($role-props-map, 'palette');
+  $palette-props-map: map.get($palette, $palette-name);
+  $hue: map.get($palette-props-map, 'hue');
+  $chroma-max: map.get($palette-props-map, chroma-max);
+  $luminance-at-chroma-max: map.get(
+    $palette-props-map,
+    'luminance-at-chroma-max'
+  );
+
+  @return create-color(
+    $luminance,
+    $hue,
+    $chroma-max,
+    $luminance-at-chroma-max,
+    $opacity
+  );
+}
