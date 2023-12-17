@@ -5,13 +5,12 @@ const imgPaths = [
   './style/assets/img1.jpg',
   './style/assets/img2.jpg',
   './style/assets/img3.jpg',
-  
+
   './style/assets/img5.jpg',
   './style/assets/img6.jpg',
-  
+
   './style/assets/img8.jpg',
   './style/assets/img9.jpg',
-  
 ];
 let cam;
 let camGraphics;
@@ -119,14 +118,33 @@ function chkHover() {
 
 function mouseDragged() {
   const mouseDistSq = (width / 2 - mouseX) ** 2 + (height / 2 - mouseY) ** 2;
-  if (mouseDistSq >= (width / 2) ** 2) return;
+  const canvasRadiusSq = (width / 2 - 80) ** 2; // 이 부분을 수정
+
+  if (mouseDistSq >= canvasRadiusSq) return;
 
   const prob = random();
   const random2D = p5.Vector.random2D();
   random2D.mult(random(25, 50));
 
-  particles.push(
-    new Particle(
+  let particle1 = new Particle(
+    mouseX,
+    mouseY,
+    random2D.x + mouseX,
+    random2D.y + mouseY,
+    random(5, 10),
+    color(random(255), random(255), random(255)),
+    imgs[floor(random(imgs.length))]
+  );
+
+  // 새 파티클 위치가 캔버스 경계 내에 있는지 확인
+  if (isWithinCanvasBounds(particle1.pos.x, particle1.pos.y)) {
+    particles.push(particle1);
+  }
+
+  if (prob > 0.5) {
+    random2D.rotate(random(TAU));
+
+    let particle2 = new Particle(
       mouseX,
       mouseY,
       random2D.x + mouseX,
@@ -134,21 +152,18 @@ function mouseDragged() {
       random(5, 10),
       color(random(255), random(255), random(255)),
       imgs[floor(random(imgs.length))]
-    )
-  );
-
-  if (prob > 0.5) {
-    random2D.rotate(random(TAU));
-    particles.push(
-      new Particle(
-        mouseX,
-        mouseY,
-        random2D.x + mouseX,
-        random2D.y + mouseY,
-        random(5, 10),
-        color(random(255), random(255), random(255)),
-        imgs[floor(random(imgs.length))]
-      )
     );
+
+    // 새 파티클 위치가 캔버스 경계 내에 있는지 확인
+    if (isWithinCanvasBounds(particle2.pos.x, particle2.pos.y)) {
+      particles.push(particle2);
+    }
   }
+}
+
+// 캔버스 경계 내에 있는지 확인하는 함수 추가
+function isWithinCanvasBounds(x, y) {
+  const canvasRadius = width / 2 - 20; // 이 부분을 수정
+  const distanceSq = (x - width / 2) ** 2 + (y - height / 2) ** 2;
+  return distanceSq <= canvasRadius ** 2;
 }
