@@ -5,13 +5,13 @@ const imgPaths = [
   './style/assets/img1.jpg',
   './style/assets/img2.jpg',
   './style/assets/img3.jpg',
-  './style/assets/img4.jpg',
+  
   './style/assets/img5.jpg',
   './style/assets/img6.jpg',
-  './style/assets/img7.jpg',
+  
   './style/assets/img8.jpg',
   './style/assets/img9.jpg',
-  './style/assets/img10.jpg',
+  
 ];
 let cam;
 let camGraphics;
