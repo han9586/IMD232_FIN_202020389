@@ -1,7 +1,7 @@
 const particles = [];
 let hoveredParticle = null;
 const imgs = [];
-const imgPaths = ['assets/pImg1.jpg', 'assets/pImg2.jpg'];
+const imgPaths = ['./style/assets/pImg1.jpg', './style/assets/pImg2.jpg'];
 let cam;
 let camGraphics;
 
