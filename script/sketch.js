@@ -118,7 +118,7 @@ function chkHover() {
 
 function mouseDragged() {
   const mouseDistSq = (width / 2 - mouseX) ** 2 + (height / 2 - mouseY) ** 2;
-  const canvasRadiusSq = (width / 2 - 80) ** 2; // 이 부분을 수정
+  const canvasRadiusSq = (width / 2 - 90) ** 2; // 이 부분을 수정
 
   if (mouseDistSq >= canvasRadiusSq) return;
 
