@@ -118,7 +118,7 @@ function chkHover() {
 
 function mouseDragged() {
   const mouseDistSq = (width / 2 - mouseX) ** 2 + (height / 2 - mouseY) ** 2;
-  const canvasRadiusSq = (width / 2 - 90) ** 2; // 이 부분을 수정
+  const canvasRadiusSq = (width / 2 - 90) ** 2;
 
   if (mouseDistSq >= canvasRadiusSq) return;
 
@@ -163,7 +163,7 @@ function mouseDragged() {
 
 // 캔버스 경계 내에 있는지 확인하는 함수 추가
 function isWithinCanvasBounds(x, y) {
-  const canvasRadius = width / 2 - 20; // 이 부분을 수정
+  const canvasRadius = width / 2 - 20;
   const distanceSq = (x - width / 2) ** 2 + (y - height / 2) ** 2;
   return distanceSq <= canvasRadius ** 2;
 }
