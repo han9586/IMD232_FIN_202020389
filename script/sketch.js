@@ -154,7 +154,6 @@ function mouseDragged() {
       imgs[floor(random(imgs.length))]
     );
 
-    // 새 파티클 위치가 캔버스 경계 내에 있는지 확인
     if (isWithinCanvasBounds(particle2.pos.x, particle2.pos.y)) {
       particles.push(particle2);
     }
