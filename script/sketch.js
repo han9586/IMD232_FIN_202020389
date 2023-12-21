@@ -76,6 +76,7 @@ function draw() {
 }
 
 function captureDot() {
+  //카메라 픽셀아트 (교수님 코드 참고)
   cam.loadPixels();
   noStroke();
   fill('grey');
